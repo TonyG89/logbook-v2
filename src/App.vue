@@ -1,11 +1,11 @@
 <template>
-  <v-app>
+  <v-app class="bg-red-lighten-3">
     <v-main>
-      <HelloWorld />
+      <LogbookTable />
     </v-main>
   </v-app>
 </template>
 
 <script setup>
-  import HelloWorld from '@/components/HelloWorld.vue'
+  import LogbookTable from './components/LogbookTable.vue';
 </script>
