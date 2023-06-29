@@ -12,6 +12,7 @@
         :entity="dashboardWarning"
         title="ПОТРАЧЕНО(wastedMoney)"
       />
+      <InfoTable :data="logbookList" :sortingArray="arrayWithYears" />
     </v-row>
 
     <v-chip-group selected-class="text-secondary">
@@ -50,9 +51,11 @@ import { AgGridVue } from "ag-grid-vue3"; // the AG Grid Vue Component
 import { computed, onMounted, reactive, ref } from "vue";
 import Loader from "./Loader.vue";
 import InfoDashboard from "./InfoDashboard.vue";
+import InfoTable from "./InfoTable.vue";
 import useLogbook from "../composables/useLogbook";
 import logbookConfig from "./configs/logbookTableConfig";
 import computedData from "./configs/infoDashboardsConfig";
+import moment from "moment";
 import {
   distanceDashboardConfig,
   costDashboardConfig,
@@ -70,6 +73,17 @@ const { logbookList, getLogbookList } = useLogbook();
 const onGridReady = (params) => {
   gridApi.value = params.api;
 };
+
+// const tableData = ref([]);
+
+// const transferDataToInfoTableData = () => {
+//   tableData.value = logbookList.map(item=>{
+//     title:,
+//     wasted,
+//     distance,
+//     count:,
+//   })
+// };
 
 const statusFilter = computed(() => {
   if (tableData.value?.items) {
@@ -103,38 +117,16 @@ const loadData = async () => {
   await getLogbookList();
   processProps(logbookList);
   infoDashboardsRender();
-  console.log(tableData.value.items);
-  // if (logbookList.value.length) {
-  //   headerArray.value = Object.keys(logbookList.value?.[0]);
-  // }
-
-  // // ЗАГОЛОВОК
-  // columnDefs.value = headerArray.value
-  //   .map((title) => {
-  //     return {
-  //       headerName: title.toUpperCase(),
-  //       field: title.toLowerCase(),
-  //     };
-  //   })
-  //   .filter((item) => item.field !== 'comments') // скрыть комментарии
-  //   .map((item) => {
-  //     console.log(item);
-  //     // В НАЧАЛЕ Мэпа...
-  //     if (item.field === 'details') {
-  //       item.headerName = 'xxx';
-  //       item.children = [
-  //         {
-  //           headerName: 'title.toUpperCase()',
-  //           field: 'sSSSSS'.toLowerCase(),
-  //         },
-  //       ];
-  //     }
-  //     return {
-  //       ...item,
-  //     };
-  //   });
+  // transferDataToInfoTableData(logbookList);
   isLoading.value = false;
 };
+
+const arrayWithYears = computed(() => {
+  const years = logbookList.value.map((item) => moment(item.date).year());
+  console.log(years);
+  const uniqYears = [...new Set(years)];
+  return uniqYears;
+});
 
 const changeFilterStatus = (filterValue) => {
   const filteredLogbookList = logbookList.value?.filter(
@@ -154,5 +146,5 @@ onMounted(async () => loadData());
 </script>
 
 <style></style>
-../composables/infoDashboardsConfig./config/infoDashboardsConfig
-./config/logbookTableConfig./configs/logbookTableConfig./configs/infoDashboardsConfig./configs
+<!-- ../composables/infoDashboardsConfig./config/infoDashboardsConfig
+./config/logbookTableConfig./configs/logbookTableConfig./configs/infoDashboardsConfig./configs -->
