@@ -1,6 +1,6 @@
-export default function (data) {
-  const newItem = data.value[0]
-  const oldItem = data.value.at(-1)
+export default function (data={}) {
+  const newItem = data.value?.[0]
+  const oldItem = data.value?.at(-1)
 
 
   const entities = [
@@ -53,8 +53,8 @@ export default function (data) {
       limit: 30000,
     },
   ]
-  const status = data.value.filter(obj => obj.status === 'расходка')
-  const setArr = new Set(status.map(({ categories }) => categories))
+  const status = data.value?.filter(obj => obj.status === 'расходка')
+  const setArr = new Set(status?.map(({ categories }) => categories))
   console.log(setArr)
 
   return entities

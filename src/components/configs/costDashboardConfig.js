@@ -76,35 +76,6 @@ export default function (data) {
   {
     title: 'Тюнинг:', // весь километраж с первой записи по последнею / количество дней/365
     value: getAmount('details', 'тюнинг') + getAmount('work', 'тюнинг'),
-  },
-  // СДЕЛАТЬ ОТЧЕТ ЗА ГОД ОДЕЛЬНО
-  {
-    title: 'за 2019 год:',
-    value: '',
-  },
-  {
-    title: 'за 2020 год:',
-    value: '',
-  },
-  {
-    title: 'за 2021 год:',
-    value: '',
-  },
-  {
-    title: 'за прошлый год:',
-    value: '',
-  },
-  {
-    title: 'за текущий год:',
-    value: (amountAll / totalDays * 365).toFixed(2),
-  },
-  {
-    title: 'Среднее за год:',
-    value: (amountAll / totalDays * 365).toFixed(2),
-  },
-  {
-    title: 'Среднее за день:',
-    value: (amountAll / totalDays).toFixed(2),
   }]
 
   return infoDashboard.map((obj) => ({ ...obj, value: obj.value + ' грн' }))

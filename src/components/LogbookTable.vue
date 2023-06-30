@@ -1,7 +1,9 @@
 <template>
-  <div class="d-flex flex-column w-100">
+  <div class="d-flex flex-column w-100 bg-lime-lighten-2">
+    <LogbookDashboard :data="logbookList"/>
     <v-row class="ma-2">
       <InfoDashboard :entity="dashboardGeneralInfo" title="Общая информация:" />
+
       <InfoDashboard :entity="dashboardCost" title="Расходы" />
       <InfoDashboard :entity="dashboardDistance" title="Растояние" />
       <InfoDashboard
@@ -34,7 +36,7 @@
       style="min-width: 300px; height: 500px"
       :columnDefs="tableData.value.headerTitle"
       :rowData="tableData.value.items"
-      :defaultColDef="defaultColDef.pinnedBottomRowConfig"
+      :defaultColDef="defaultColDef"
       rowSelection="multiple"
       animateRows="true"
       @cell-clicked="cellWasClicked"
@@ -51,6 +53,7 @@ import { AgGridVue } from "ag-grid-vue3"; // the AG Grid Vue Component
 import { computed, onMounted, reactive, ref } from "vue";
 import Loader from "./Loader.vue";
 import LoaderCar from "./LoaderCar.vue";
+import LogbookDashboard from "./LogbookDashboard.vue";
 import InfoDashboard from "./InfoDashboard.vue";
 import InfoTable from "./InfoTable.vue";
 import useLogbook from "../composables/useLogbook";
@@ -67,7 +70,6 @@ const gridApi = ref(null); // Optional - for accessing Grid's API
 const { colDefs, row, processProps, tableData, defaultColDef } =
   logbookConfig();
 const { allStatistic, averageStatistic } = computedData();
-
 const { logbookList, getLogbookList } = useLogbook();
 
 // Obtain API from grid's onGridReady event
@@ -90,7 +92,6 @@ const statusFilter = computed(() => {
   if (tableData.value?.items) {
     const statusArr = tableData.value.items.map((item) => item.status);
     const uniqStatus = [...new Set(statusArr)];
-    console.log(uniqStatus);
     return uniqStatus;
   }
 });
@@ -111,7 +112,6 @@ const infoDashboardsRender = () => {
   dashboardGeneralInfo.value = generalInfoDashboardConfig(logbookList);
   dashboardWarning.value = warningDashboardConfig(logbookList);
 };
-console.log(dashboardDistance);
 const loadData = async () => {
   // TODO: проверка на наявность в локал стораже... и кнопка обновить базу.
   isLoading.value = true;
@@ -124,7 +124,6 @@ const loadData = async () => {
 
 const arrayWithYears = computed(() => {
   const years = logbookList.value.map((item) => moment(item.date).year());
-  console.log(years);
   const uniqYears = [...new Set(years)];
   return uniqYears;
 });
@@ -133,9 +132,7 @@ const changeFilterStatus = (filterValue) => {
   const filteredLogbookList = logbookList.value?.filter(
     ({ status }) => status === filterValue
   );
-  console.log(filterValue);
   // debugger;
-  console.log(filteredLogbookList);
   processProps(filteredLogbookList);
 };
 

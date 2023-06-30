@@ -1,4 +1,5 @@
 import { computed, reactive } from 'vue'
+import moment from 'moment'
 
 export default () => {
   let colDefs = []
@@ -25,20 +26,21 @@ export default () => {
         field: name.toLowerCase(),
       }
       /** добавление других свойств в колонку */
-      if (name === "kilometers") {
-        item.rowGroup = false // группировка
+      if (name === "isTrue" || name ==='') {  // пофиксить последний столбец(УДАЛИТ С ГУГЛА)
+        item.hide = true // группировка
       }
       return item
     })
     // РАЗОБРАТЬСЯ С РЯДОМ
     row = tableProps._value?.map((item, ind) => ({
       ...item,
-      date: item.date.slice(0, 10), // редактирование столбца
+      date: moment(item.date).format('L'), // редактирование столбца
       kilometers: item.kilometers
         ? item.kilometers + ' км'
         : '-',
       details: item.details ? `${item.details} грн` : '-',
       work: item.work ? `${item.work} грн` : '-',
+      actions: item.actions.toString(),
     }))
 
     /** прошлый, но с проблемами */
