@@ -26,7 +26,7 @@
 
     <button @click="isLoading = !isLoading">developer flag</button>
     <div v-if="isLoading">
-      <Loader />
+      <LoaderCar />
     </div>
     <ag-grid-vue
       v-else
@@ -50,6 +50,7 @@ import "ag-grid-community/styles/ag-theme-alpine.css";
 import { AgGridVue } from "ag-grid-vue3"; // the AG Grid Vue Component
 import { computed, onMounted, reactive, ref } from "vue";
 import Loader from "./Loader.vue";
+import LoaderCar from "./LoaderCar.vue";
 import InfoDashboard from "./InfoDashboard.vue";
 import InfoTable from "./InfoTable.vue";
 import useLogbook from "../composables/useLogbook";
