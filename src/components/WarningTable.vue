@@ -13,10 +13,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in entities" :key="item.title">
-          <td class="text-left font-weight-medium bg-graded-lighten-3">{{ item.title }}</td>
-          <td class="border"><span class="border">xxcx</span>cxzcz</td>
-          <td></td>
+        <tr v-for="item in tableDataState" :key="item.title">
+          <td class="text-left font-weight-medium bg-graded-lighten-3">
+            {{ item.title }}
+          </td>
+          <td class="border">{{ item.over }}</td>
+          <td>{{ item.didIt }}</td>
           <td class="text-right"></td>
         </tr>
       </tbody>
@@ -28,15 +30,28 @@
 import { ref, computed } from "vue";
 import Loader from "./Loader.vue";
 import warningTableConfig from "./configs/warningTableConfig";
+import moment from "moment";
 const entities = warningTableConfig();
-console.log(entities);
 
-const tableState=computed(()=>({
-  title: 
-}))
+const tableDataState = computed(() =>
+  entities.map((item) => {
+    const lastAction = props.data?.find((obj) => obj.categories === item.title);
+    return {
+      title: item.title,
+      over: typeof item.limit === 'string' ? '-'  : item.limit - (props.data[0]?.kilometers - lastAction?.kilometers),
+      didIt: `${lastAction?.kilometers} км  |  ${moment(
+        lastAction?.date
+      ).format("ll")}`,
+      dayToEnd: props.data?.filter(
+        ({ categories }) => categories === item.title
+      ),
+    };
+  })
+);
 
-defineProps({
-  entity: {
+console.log(props.data.value);
+const props = defineProps({
+  data: {
     type: Array,
     default: () => [], // [{title: '', value: '' || [''],}]
     required: true,

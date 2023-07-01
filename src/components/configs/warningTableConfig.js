@@ -48,6 +48,11 @@ export default function (data={}) {
       limit: 10000,
     },
     {
+      title: "Ремень ГРМ",
+      value: 'kkk',
+      limit: 10000,
+    },
+    {
       title: "ГУР",
       value: 'kkk',
       limit: 30000,
