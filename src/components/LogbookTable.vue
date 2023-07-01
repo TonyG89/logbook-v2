@@ -10,10 +10,6 @@
         :entity="averageStatisticInfo"
         title="Средняя статистика"
       />
-      <InfoDashboard
-        :entity="dashboardWarning"
-        title="ПОТРАЧЕНО(wastedMoney)"
-      />
       <InfoTable :data="logbookList" :sortingArray="arrayWithYears" />
     </v-row>
 

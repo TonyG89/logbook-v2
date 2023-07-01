@@ -36,22 +36,6 @@ export default function (data) {
     title: 'Наездил:',
     value: myTotalDistance + ' км',
   },
-  // {
-  //   title: '2019 год:',
-  //   value: annualDistance(2019) + ' км',
-  // },
-  // {
-  //   title: '2020: год',
-  //   value: annualDistance(2020) + ' км',
-  // },
-  // {
-  //   title: '2021 год:',
-  //   value: annualDistance(2021) + ' км',
-  // },
-  // {
-  //   title: 'Прошлый год:',
-  //   value: annualDistance(2022) + ' км',
-  // },
   {
     title: 'За текущий год:',
     value: annualDistance(2023) + ' км',

@@ -19,7 +19,7 @@
           </td>
           <td class="border">{{ item.over }}</td>
           <td>{{ item.didIt }}</td>
-          <td class="text-right"></td>
+          <td class="text-right">{{ item.dayToEnd }}</td>
         </tr>
       </tbody>
     </v-table>
@@ -36,15 +36,24 @@ const entities = warningTableConfig();
 const tableDataState = computed(() =>
   entities.map((item) => {
     const lastAction = props.data?.find((obj) => obj.categories === item.title);
+
+    const averageDistance =
+      props.data[0]?.kilometers - props.data.at(-1)?.kilometers;
+
+    const startDate = moment(props.data.at(-1)?.date);
+    const lastDate = moment(props.data[0]?.date);
+    const daysPassed = lastDate.diff(startDate, "days");
+    const supply =
+      item.limit - (props.data[0]?.kilometers - lastAction?.kilometers);
+
+    console.log(averageDistance / daysPassed);
     return {
       title: item.title,
-      over: typeof item.limit === 'string' ? '-'  : item.limit - (props.data[0]?.kilometers - lastAction?.kilometers),
+      over: typeof item.limit === "string" ? "-" : supply + " км",
       didIt: `${lastAction?.kilometers} км  |  ${moment(
         lastAction?.date
       ).format("ll")}`,
-      dayToEnd: props.data?.filter(
-        ({ categories }) => categories === item.title
-      ),
+      dayToEnd: parseInt(supply / (averageDistance / daysPassed)) + " дней",
     };
   })
 );
