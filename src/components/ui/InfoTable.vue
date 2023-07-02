@@ -1,20 +1,22 @@
 <template>
-  <Loader v-if="!data.length"></Loader>
-  <div v-else class="rounded border bg-red-lighten-3 ">
+  <Loader v-if="tableData.value?.length"></Loader>
+  <div v-else class="rounded border bg-red-lighten-3">
     <h2 class="bg-red-lighten-3 px-3 text-uppercase">Ежегодная статистика</h2>
 
     <v-table class="mx-1 mb-1">
       <thead>
-        <tr class="text-uppercase bg-red-lighten-5 ">
+        <tr class="text-uppercase bg-red-lighten-5">
           <th class="text-left">год</th>
           <th>потрачено</th>
-          <th >дистанция</th>
+          <th>дистанция</th>
           <th class="text-right">количество действий</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="item in tableDataState" :key="item.title">
-          <td class="text-left font-weight-medium bg-graded-lighten-3">{{ item?.title }}</td>
+          <td class="text-left font-weight-medium bg-graded-lighten-3">
+            {{ item?.title }}
+          </td>
           <td>{{ item?.wasted || "-" }}</td>
           <td>{{ item?.distance || "-" }}</td>
           <td class="text-right">{{ item?.count || "-" }}</td>
@@ -53,10 +55,8 @@ const filterDataByYear = (year) => {
       return props.data.filter((item) => item.date.includes(year));
   }
 };
-
 const tableData = ref([]);
 
-console.log(tableData.value);
 const tableDataState = computed(() => {
   tableData.value = [
     ...props.sortingArray,
@@ -73,20 +73,22 @@ const tableDataState = computed(() => {
     distance: `${
       +filterDataByYear(year)[0]?.kilometers -
       +filterDataByYear(year).at(-1)?.kilometers
-    } км`,
+    } км` || null,
     count: filterDataByYear(year)?.length + " заявок",
   }));
 });
+
+console.log(tableDataState.value);
 </script>
 
-<style >
+<style>
 th,
 td {
   text-align: center;
   width: 0%;
 }
 
-.bl{
+.bl {
   border-left: 2px dashed black;
 }
 </style>

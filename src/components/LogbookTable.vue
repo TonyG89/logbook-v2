@@ -1,15 +1,17 @@
 <template>
   <div class="d-flex flex-column w-100 bg-lime-lighten-2">
-    <LogbookDashboard :data="logbookList"/>
+    <LogbookDashboard :data="logbookList" />
     <v-row class="ma-2">
       <InfoDashboard :entity="dashboardGeneralInfo" title="Общая информация:" />
-
-      <InfoDashboard :entity="dashboardCost" title="Расходы" />
-      <InfoDashboard :entity="dashboardDistance" title="Растояние" />
       <InfoDashboard
         :entity="averageStatisticInfo"
         title="Средняя статистика"
       />
+      <v-divider />
+      <InfoDashboard :entity="dashboardCost" title="Расходы" />
+      <InfoDashboard :entity="dashboardDistance" title="Расстояние" />
+      <!-- <InfoDashboard :entity="dashboardCurrentYear" title="Текущий год" /> -->
+      <v-divider />
       <InfoTable :data="logbookList" :sortingArray="arrayWithYears" />
     </v-row>
 
@@ -47,11 +49,11 @@ import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import { AgGridVue } from "ag-grid-vue3"; // the AG Grid Vue Component
 import { computed, onMounted, reactive, ref } from "vue";
-import Loader from "./Loader.vue";
-import LoaderCar from "./LoaderCar.vue";
+import Loader from "./ui/Loader.vue";
+import LoaderCar from "./ui/LoaderCar.vue";
 import LogbookDashboard from "./LogbookDashboard.vue";
-import InfoDashboard from "./InfoDashboard.vue";
-import InfoTable from "./InfoTable.vue";
+import InfoDashboard from "./ui/InfoDashboard.vue";
+import InfoTable from "./ui/InfoTable.vue";
 import useLogbook from "../composables/useLogbook";
 import logbookConfig from "./configs/logbookTableConfig";
 import computedData from "./configs/infoDashboardsConfig";
@@ -61,6 +63,7 @@ import {
   costDashboardConfig,
   generalInfoDashboardConfig,
   warningDashboardConfig,
+  currentYearDashboardConfig,
 } from "./configs";
 const gridApi = ref(null); // Optional - for accessing Grid's API
 const { colDefs, row, processProps, tableData, defaultColDef } =
@@ -100,6 +103,7 @@ const averageStatisticInfo = ref([]);
 const dashboardDistance = ref([]);
 const dashboardCost = ref([]);
 const dashboardWarning = ref([]);
+const dashboardCurrentYear = ref([]);
 
 const infoDashboardsRender = () => {
   averageStatisticInfo.value = averageStatistic(logbookList);
@@ -107,6 +111,7 @@ const infoDashboardsRender = () => {
   dashboardCost.value = costDashboardConfig(logbookList);
   dashboardGeneralInfo.value = generalInfoDashboardConfig(logbookList);
   dashboardWarning.value = warningDashboardConfig(logbookList);
+  dashboardCurrentYear.value = currentYearDashboardConfig(logbookList);
 };
 const loadData = async () => {
   // TODO: проверка на наявность в локал стораже... и кнопка обновить базу.

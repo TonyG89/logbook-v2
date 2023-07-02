@@ -2,19 +2,24 @@
 import {
   fullDate, quantityDay
 } from '@/helpers/dates.js'
+import moment from 'moment'
 
-export default function computedData(params) {
+
+export default function computedData() {
+
+
 
 
   const allStatistic = (data) => {
     const newItem = data.value[0]
     const oldItem = data.value.at(-1)
+    const currentYear = moment().year()
+
     // DATE
     const fromBoughtToToday = new Date() - new Date(oldItem.date)
     const countDaysFromLastAction = new Date() - new Date(newItem.date)
-    const dataThisYear = data.value?.filter(({ date }) => date.includes('2023'))
-    const dataLastYear = data.value?.filter(({ date }) => date.includes('2022'))
-    const lastDateKilometers = dataThisYear.at(-1).kilometers || (dataThisYear.at(-2).kilometers + data.value[dataThisYear.length + 1].kilometers) / 2
+    const dataThisYear = data.value?.filter(({ date }) => date.includes(currentYear))
+    const dataLastYear = data.value?.filter(({ date }) => date.includes(currentYear - 1))
     const quantityDays = oldItem.date
     return [{
       title: 'Срок службы:',
@@ -57,42 +62,54 @@ export default function computedData(params) {
   const averageStatistic = (data) => {
     const newItem = data.value[0]
     const oldItem = data.value.at(-1)
-
+    const getAmount = (work, filteredValue = '') => {
+      let amount
+      if (!filteredValue) amount = data.value?.reduce((sum, item) => sum + +item[work], 0)
+      else {
+        const filteredObj = data.value.filter(obj => obj.status === filteredValue)
+        amount = filteredObj?.reduce((sum, item) => sum + +item[work], 0)
+      }
+      return amount
+    }
     // DATE
     const fromBoughtToToday = new Date() - new Date(oldItem.date)
-    const countDaysFromLastAction = new Date() - new Date(newItem.date)
 
     const totalDays = quantityDay(fromBoughtToToday)
     const totalDistance = newItem.kilometers - oldItem.kilometers
 
     return [{
-      title: 'дней в эксплуатации',
+      title: 'Срок службы',
       value: [totalDays + 'дней'],
+      // type:'',
     },
     {
-      title: 'Общее растояние',
+      title: 'Мое расстояние',
       value: totalDistance + 'км',
+      // type:'',
     },
     {
       title: 'Средняя растояние',
-      value: Math.round(totalDistance / totalDays * 365) + 'км/год',
+      value: [Math.round(totalDistance / totalDays * 365) + 'км/год', (totalDistance / totalDays).toFixed(2) + 'км/день'],
+      // type:'',
     },
     {
       title: 'Средняя растояние',
       value: (totalDistance / totalDays).toFixed(2) + 'км/день',
+      // type:'',
     },
     // ВКЛАДКА: ПОТРАЧЕНО <HR>
     {
       title: 'Общее потрачено',
       value: null
+      // type:'',
     },
     {
-      title: 'Тратиться в среднем за год',
-      value: null
-    },
-    {
-      title: 'Тратиться в среднем за месяц',
-      value: null
+      title: 'Тратиться',
+      value: [
+        Math.round((getAmount('details') + getAmount('work')) / totalDays * 365) + 'грн/год',
+        Math.round((getAmount('details') + getAmount('work')) / totalDays * 30) + 'грн/месяц',
+        Math.round((getAmount('details') + getAmount('work')) / totalDays) + 'грн/день']
+      // type:'',
     },
     ]
   }

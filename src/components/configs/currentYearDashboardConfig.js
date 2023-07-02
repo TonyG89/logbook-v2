@@ -33,28 +33,52 @@ export default function (data) {
 
   const infoDashboard = [{
     title: 'Пробег:',
-    value: newItem.kilometers + ' км',
-    type: 'total'
+    value: (annualDistance(currentYear) / parseInt(daysOnThisYear)).toFixed(1) + ' км/день',
+    type: 'distance'
   },
   {
-    title: 'Наездил:',
-    value: myTotalDistance + ' км',
-    type: 'dinstance'
+    title: '-за месяц:',
+    value: newItem.kilometers + ' км' + 'за текущий год',
+    type: 'distance'
   },
   {
-    title: 'За текущий год:',
-    value: annualDistance(currentYear) + ' км',
-    type: 'dinstance'
+    title: '-за день:',
+    value: newItem.kilometers + ' км' + 'за текущий год',
+    type: 'distance'
+  },
+  {
+    title: 'Потрачено:',
+    value: myTotalDistance + ' грн' + 'за текущий год',
+    type: 'wasted'
+  },
+  {
+    title: '-за месяц:',
+    value: newItem.kilometers + ' грн' + 'за текущий год',
+    type: 'wasted'
+  },
+  {
+    title: '-за день:',
+    value: newItem.kilometers + ' грн' + 'за текущий год',
+    type: 'wasted'
+  },
+  {
+    title: 'поломка:',
+    value: annualDistance(currentYear),
+    type: 'category' + ' грн'
+  },
+  {
+    title: 'расходка:',
+    value: annualDistance(currentYear),
+    type: 'category' + ' грн'
+  },
+  {
+    title: 'Что делал(категория):',
+    value: annualDistance(currentYear),
+    type: 'tags'
   },
   {
     title: 'Текущий год:', // весь километраж с первой записи по последнею / количество дней/365
     value: (annualDistance(currentYear) / parseInt(daysOnThisYear)).toFixed(1) + ' км/день',
-    type: 'km-per-day'
-  },
-  {
-    title: 'За всё время:',
-    value: (myTotalDistance / totalDays).toFixed(1) + ' км/день',
-    type: 'km-per-day'
   },
   ]
   return infoDashboard

@@ -1,13 +1,10 @@
 <template>
-  <div class="bg-brown-darken-3">
-    <h1 class="mx-4 my-2">DASHBOARD</h1>
-    <WarningTable :data="data" />
-  </div>
+    <WarningTable :data="data" class="w-50"/>
   <LoaderCar />
 </template>
 
 <script setup>
-import LoaderCar from "./LoaderCar.vue";
+import LoaderCar from "./ui/LoaderCar.vue";
 import WarningTable from "./WarningTable.vue";
 
 defineProps({

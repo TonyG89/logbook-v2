@@ -28,7 +28,7 @@
 
 <script setup>
 import { ref, computed } from "vue";
-import Loader from "./Loader.vue";
+import Loader from "./ui/Loader.vue";
 import warningTableConfig from "./configs/warningTableConfig";
 import moment from "moment";
 const entities = warningTableConfig();

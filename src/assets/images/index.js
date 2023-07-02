@@ -1,1 +1,1 @@
-export { default as carLoader } from './carLoader.svg'
+export { default as carLoader } from './carLoader.svg?raw'

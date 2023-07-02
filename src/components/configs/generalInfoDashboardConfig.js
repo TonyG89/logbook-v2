@@ -29,32 +29,44 @@ export default function (data) {
   return [{
     title: 'Срок службы:',
     value: fullDate(fromBoughtToToday),
+    type: 'main',
   },
   {
     title: 'Последние манипуляции:',
     value: fullDate(countDaysFromLastAction).join(' ') || 'сегодня',
+    type: 'main',
   },
   {
     title: 'Наездил:',
     value: myTotalDistance + ' км',
+    type: 'wasted',
   },
   {
     title: 'Потратил:',
     value: getAmount('details') + getAmount('work') + ' грн',
     hint: `детали: ${getAmount('details')} грн; работа: ${getAmount('work')} грн`,
+    type: 'wasted',
   },
   {
     title: 'Cтоимость километра:',
-    value: ((getAmount('details') + getAmount('work'))/myTotalDistance).toFixed(2) + ' грн/км',
-    hint: 'это стоимость без расхода топлива'
+    value: ((getAmount('details') + getAmount('work')) / myTotalDistance).toFixed(2) + ' грн/км',
+    hint: 'это стоимость без расхода топлива',
+    type: 'main',
   },
   {
-    title: 'действий:',
+    title: 'манипуляций:',
     value: data.value.length + ' шт.',
+    type: 'wasted',
+  },
+  {
+    title: 'Последний ремонт:',
+    value: 'пока нема',
+    type: 'repair',
   },
   {
     title: 'Ближайший ремонт:',
     value: 'пока нема',
+    type: 'repair',
   },
   ]
 }

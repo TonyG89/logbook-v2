@@ -43,39 +43,48 @@ export default function (data) {
   const infoDashboard = [{
     title: 'За всё время:',
     value: getAmount('details') + getAmount('work'),
+    type: 'amount',
   },
   {
     title: 'на детали:',
     value: getAmount('details'),
+    type: 'amount',
   },
   {
     title: 'на работу:',
     value: getAmount('work'),
+    type: 'amount',
   },
   {
     title: 'Шиномонтаж:',
     value: getAmount('details', 'шинка') + getAmount('work', 'шинка'),
+    type: 'categories',
   },
   {
     title: 'Расходка:',
     value: getAmount('details', 'расходка') + getAmount('work', 'расходка'),
+    type: 'categories',
   },
   {
     title: 'Поломка и износ:',
     value: getAmount('details', 'износ') + getAmount('work', 'износ') + getAmount('details', 'поломка') + getAmount('work', 'поломка'),
+    type: 'categories',
   },
   {
     title: 'Мой косяк:',
     value: getAmount('details', 'мой косяк') + getAmount('work', 'мой косяк'),
-    hint: 'Сумма включена в раздел "Поломка и износ"'
+    hint: 'Сумма включена в раздел "Поломка и износ"',
+    type: 'categories',
   },
   {
     title: 'Диагностика:',
     value: getAmount('details', 'диагностика') + getAmount('work', 'диагностика'),
+    type: 'categories',
   },
   {
     title: 'Тюнинг:', // весь километраж с первой записи по последнею / количество дней/365
     value: getAmount('details', 'тюнинг') + getAmount('work', 'тюнинг'),
+    type: 'categories',
   }]
 
   return infoDashboard.map((obj) => ({ ...obj, value: obj.value + ' грн' }))
