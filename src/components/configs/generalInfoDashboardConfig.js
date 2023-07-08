@@ -54,7 +54,7 @@ export default function (data) {
     type: 'main',
   },
   {
-    title: 'манипуляций:',
+    title: 'Манипуляций:',
     value: data.value.length + ' шт.',
     type: 'wasted',
   },

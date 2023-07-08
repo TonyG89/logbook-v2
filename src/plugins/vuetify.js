@@ -21,6 +21,7 @@ export default createVuetify({
           primary: '#EEFF41', //lime-accent-2
           secondary: '#AED581', //light-green-lighten-2
           background: '#FFFFFF',
+          title:'#4E342E',
           surface: '#FFFFFF',
           error: '#B00020',
           info: '#2196F3',

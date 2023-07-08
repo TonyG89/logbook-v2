@@ -7,9 +7,6 @@ import moment from 'moment'
 
 export default function computedData() {
 
-
-
-
   const allStatistic = (data) => {
     const newItem = data.value[0]
     const oldItem = data.value.at(-1)
@@ -104,7 +101,7 @@ export default function computedData() {
       // type:'',
     },
     {
-      title: 'Тратиться',
+      title: 'Тратится',
       value: [
         Math.round((getAmount('details') + getAmount('work')) / totalDays * 365) + 'грн/год',
         Math.round((getAmount('details') + getAmount('work')) / totalDays * 30) + 'грн/месяц',

@@ -1,6 +1,7 @@
 import {
   fullDate, quantityDay
 } from '@/helpers/dates.js'
+import { STATUS_CONFIG_TYPES } from '@/config/dataConfig.js'
 
 export default function (data) {
   const newItem = data.value[0]
@@ -38,7 +39,7 @@ export default function (data) {
   const getFilter = (v) => data.value?.filter(obj => obj[v])
 
   const getStatusFilter = (statusValue) => data.value?.filter(obj => obj.status === statusValue)?.status
-  console.log(getStatusFilter('шинка'))
+  console.log(getStatusFilter(STATUS_CONFIG_TYPES.SHINOMONTAZH))
 
   const infoDashboard = [{
     title: 'За всё время:',
@@ -57,33 +58,33 @@ export default function (data) {
   },
   {
     title: 'Шиномонтаж:',
-    value: getAmount('details', 'шинка') + getAmount('work', 'шинка'),
+    value: getAmount('details', STATUS_CONFIG_TYPES.SHINOMONTAZH) + getAmount('work', STATUS_CONFIG_TYPES.SHINOMONTAZH),
     type: 'categories',
   },
   {
     title: 'Расходка:',
-    value: getAmount('details', 'расходка') + getAmount('work', 'расходка'),
+    value: getAmount('details', STATUS_CONFIG_TYPES.RASHODKA) + getAmount('work', STATUS_CONFIG_TYPES.RASHODKA),
     type: 'categories',
   },
   {
     title: 'Поломка и износ:',
-    value: getAmount('details', 'износ') + getAmount('work', 'износ') + getAmount('details', 'поломка') + getAmount('work', 'поломка'),
+    value: getAmount('details', STATUS_CONFIG_TYPES.IZNOS) + getAmount('work', STATUS_CONFIG_TYPES.IZNOS) + getAmount('details', STATUS_CONFIG_TYPES.BROKEN) + getAmount('work', STATUS_CONFIG_TYPES.BROKEN),
     type: 'categories',
   },
   {
     title: 'Мой косяк:',
-    value: getAmount('details', 'мой косяк') + getAmount('work', 'мой косяк'),
+    value: getAmount('details', STATUS_CONFIG_TYPES.FORCE_MAJOR) + getAmount('work', STATUS_CONFIG_TYPES.FORCE_MAJOR),
     hint: 'Сумма включена в раздел "Поломка и износ"',
     type: 'categories',
   },
   {
     title: 'Диагностика:',
-    value: getAmount('details', 'диагностика') + getAmount('work', 'диагностика'),
+    value: getAmount('details', STATUS_CONFIG_TYPES.DIAGNOSTIC) + getAmount('work', STATUS_CONFIG_TYPES.DIAGNOSTIC),
     type: 'categories',
   },
   {
     title: 'Тюнинг:', // весь километраж с первой записи по последнею / количество дней/365
-    value: getAmount('details', 'тюнинг') + getAmount('work', 'тюнинг'),
+    value: getAmount('details', STATUS_CONFIG_TYPES.TUNING) + getAmount('work', STATUS_CONFIG_TYPES.TUNING),
     type: 'categories',
   }]
 

@@ -1,20 +1,5 @@
 <template>
-  <div class="d-flex flex-column w-100 bg-lime-lighten-2">
-    <LogbookDashboard :data="logbookList" />
-    <v-row class="ma-2">
-      <InfoDashboard :entity="dashboardGeneralInfo" title="Общая информация:" />
-      <InfoDashboard
-        :entity="averageStatisticInfo"
-        title="Средняя статистика"
-      />
-      <v-divider />
-      <InfoDashboard :entity="dashboardCost" title="Расходы" />
-      <InfoDashboard :entity="dashboardDistance" title="Расстояние" />
-      <!-- <InfoDashboard :entity="dashboardCurrentYear" title="Текущий год" /> -->
-      <v-divider />
-      <InfoTable :data="logbookList" :sortingArray="arrayWithYears" />
-    </v-row>
-
+  <div class="d-flex flex-column wrapper bg-lime-lighten-2">
     <v-chip-group selected-class="text-secondary">
       <v-chip
         v-for="item in statusFilter"
@@ -30,7 +15,7 @@
     </div>
     <ag-grid-vue
       v-else
-      class="ag-theme-alpine"
+      class="ag-theme-alpine h-screen"
       style="min-width: 300px; height: 500px"
       :columnDefs="tableData.value.headerTitle"
       :rowData="tableData.value.items"
@@ -51,24 +36,13 @@ import { AgGridVue } from "ag-grid-vue3"; // the AG Grid Vue Component
 import { computed, onMounted, reactive, ref } from "vue";
 import Loader from "./ui/Loader.vue";
 import LoaderCar from "./ui/LoaderCar.vue";
-import LogbookDashboard from "./LogbookDashboard.vue";
-import InfoDashboard from "./ui/InfoDashboard.vue";
-import InfoTable from "./ui/InfoTable.vue";
 import useLogbook from "../composables/useLogbook";
 import logbookConfig from "./configs/logbookTableConfig";
-import computedData from "./configs/infoDashboardsConfig";
-import moment from "moment";
-import {
-  distanceDashboardConfig,
-  costDashboardConfig,
-  generalInfoDashboardConfig,
-  warningDashboardConfig,
-  currentYearDashboardConfig,
-} from "./configs";
+
 const gridApi = ref(null); // Optional - for accessing Grid's API
 const { colDefs, row, processProps, tableData, defaultColDef } =
   logbookConfig();
-const { allStatistic, averageStatistic } = computedData();
+
 const { logbookList, getLogbookList } = useLogbook();
 
 // Obtain API from grid's onGridReady event
@@ -97,37 +71,15 @@ const statusFilter = computed(() => {
 
 const isLoading = ref(true);
 
-// обновляет данные дашбордов
-const dashboardGeneralInfo = ref([]);
-const averageStatisticInfo = ref([]);
-const dashboardDistance = ref([]);
-const dashboardCost = ref([]);
-const dashboardWarning = ref([]);
-const dashboardCurrentYear = ref([]);
-
-const infoDashboardsRender = () => {
-  averageStatisticInfo.value = averageStatistic(logbookList);
-  dashboardDistance.value = distanceDashboardConfig(logbookList);
-  dashboardCost.value = costDashboardConfig(logbookList);
-  dashboardGeneralInfo.value = generalInfoDashboardConfig(logbookList);
-  dashboardWarning.value = warningDashboardConfig(logbookList);
-  dashboardCurrentYear.value = currentYearDashboardConfig(logbookList);
-};
 const loadData = async () => {
   // TODO: проверка на наявность в локал стораже... и кнопка обновить базу.
   isLoading.value = true;
   await getLogbookList();
   processProps(logbookList);
-  infoDashboardsRender();
+  emits("logbookData", logbookList);
   // transferDataToInfoTableData(logbookList);
   isLoading.value = false;
 };
-
-const arrayWithYears = computed(() => {
-  const years = logbookList.value.map((item) => moment(item.date).year());
-  const uniqYears = [...new Set(years)];
-  return uniqYears;
-});
 
 const changeFilterStatus = (filterValue) => {
   const filteredLogbookList = logbookList.value?.filter(
@@ -139,11 +91,19 @@ const changeFilterStatus = (filterValue) => {
 
 const cellWasClicked = (data) => {
   console.log("cellWasClicked", data);
+  window.navigator.clipboard.writeText(data.value);
+  console.log(`"${data.value}" - сохранено в буфере обмена`);
+  // HINT - данные ячейки скопированы
 };
+
+const emits = defineEmits(["logbookData"]);
 
 onMounted(async () => loadData());
 </script>
 
-<style></style>
-<!-- ../composables/infoDashboardsConfig./config/infoDashboardsConfig
-./config/logbookTableConfig./configs/logbookTableConfig./configs/infoDashboardsConfig./configs -->
+<style>
+.wrapper {
+  max-width: 100%;
+  min-width: 330px;
+}
+</style>

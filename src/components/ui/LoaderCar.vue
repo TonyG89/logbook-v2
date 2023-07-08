@@ -1,5 +1,6 @@
 <template>
   <div class="loader">
+    <h3>Допоки машинка їде, дані підгружаються...</h3>
     <svg class="car" width="102" height="40" xmlns="http://www.w3.org/2000/svg">
       <g
         transform="translate(2 1)"
