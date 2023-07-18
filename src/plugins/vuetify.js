@@ -20,8 +20,10 @@ export default createVuetify({
         colors: {
           primary: '#EEFF41', //lime-accent-2
           secondary: '#AED581', //light-green-lighten-2
-          background: '#FFFFFF',
+          background: '#AED581',
           title:'#4E342E',
+          dashboard:'#455A64',
+          dashboardList: '#DCEDC8', //light-green-accent-1
           surface: '#FFFFFF',
           error: '#B00020',
           info: '#2196F3',

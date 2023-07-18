@@ -10,48 +10,48 @@ export default function (data={}) {
       value: 'kkk',
       limit: 10000,
     },
-    {
-      title: "Замена фильтров",
-      value: 'kkk',
-      limit: '',
-    },
+    // {
+    //   title: "Замена фильтров",
+    //   value: 'kkk',
+    //   limit: '',
+    // },
 
     {
       title: "Замена масла",
       value: 'kkk',
       limit: 10000,
     },
-    {
-      title: "Колеса",
-      value: 'kkk',
-      limit: '180',
-    },
+    // {
+    //   title: "Колеса",
+    //   value: 'kkk',
+    //   limit: '180',
+    // },
 
     {
       title: "Тормоза",
       value: 'kkk',
       limit: 50000,
     },
-    {
-      title: "ТО ходовая",
-      value: 'kkk',
-      limit: '720',
-    },
+    // {
+    //   title: "ТО ходовая",
+    //   value: 'kkk',
+    //   limit: '720',
+    // },
     {
       title: "Антифриз",
       value: 'kkk',
       limit: 50000,
     },
-    {
-      title: "Двигатель",
-      value: 'kkk',
-      limit: 10000,
-    },
-    {
-      title: "Ремень ГРМ",
-      value: 'kkk',
-      limit: 10000,
-    },
+    // {
+    //   title: "Двигатель",
+    //   value: 'kkk',
+    //   limit: 10000,
+    // },
+    // {
+    //   title: "Ремень ГРМ",
+    //   value: 'kkk',
+    //   limit: 60000,
+    // },
     {
       title: "ГУР",
       value: 'kkk',

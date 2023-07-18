@@ -1,15 +1,15 @@
 <template>
   <Loader v-if="!true"></Loader>
   <div v-else class="rounded border bg-red-lighten-3">
-    <h2 class="bg-red-lighten-3 px-3 text-uppercase">Ежегодная статистика</h2>
+    <h2 class="bg-red-lighten-3 px-3 text-uppercase">Maintenance</h2>
 
     <v-table class="mx-1 mb-1">
       <thead>
         <tr class="text-uppercase bg-red-lighten-5">
-          <th class="text-left">Наименование</th>
-          <th>осталось(км/дата)</th>
-          <th>поставил(км/дата)</th>
-          <th class="text-right">приблизительно осталось дней</th>
+          <th class="text-left">Title</th>
+          <th>Kilometers left</th>
+          <th>Last operation</th>
+          <th class="text-right">Days left</th>
         </tr>
       </thead>
       <tbody>

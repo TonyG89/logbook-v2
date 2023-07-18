@@ -1,15 +1,15 @@
 <template>
   <Loader v-if="tableData.value?.length"></Loader>
   <div v-else class="rounded border bg-red-lighten-3">
-    <h2 class="bg-red-lighten-3 px-3 text-uppercase">Ежегодная статистика</h2>
+    <h2 class="bg-red-lighten-3 px-3 text-uppercase">Annual statistics</h2>
 
     <v-table class="mx-1 mb-1">
       <thead>
         <tr class="text-uppercase bg-red-lighten-5">
-          <th class="text-left">год</th>
-          <th>потрачено</th>
-          <th>дистанция</th>
-          <th class="text-right">количество действий</th>
+          <th class="text-left">Year</th>
+          <th>Costs</th>
+          <th>Distance</th>
+          <th class="text-right">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -70,10 +70,11 @@ const tableDataState = computed(() => {
         work ? +work + +details : details ? +details : 0
       )
       .reduce((a, b) => a + b, 0)} грн`,
-    distance: `${
-      +filterDataByYear(year)[0]?.kilometers -
-      +filterDataByYear(year).at(-1)?.kilometers
-    } км` || null,
+    distance:
+      `${
+        +filterDataByYear(year)[0]?.kilometers -
+        +filterDataByYear(year).at(-1)?.kilometers
+      } км` || null,
     count: filterDataByYear(year)?.length + " заявок",
   }));
 });

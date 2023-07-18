@@ -32,30 +32,32 @@ export default function (data) {
 
 
   const infoDashboard = [{
-    title: 'Пробег:',
-    value: newItem.kilometers + ' км',
+    title: 'All distance',
+    value: newItem.kilometers,
     type: 'total'
   },
   {
-    title: 'Наездил:',
-    value: myTotalDistance + ' км',
+    title: 'My distance',
+    value: myTotalDistance,
     type: 'dinstance'
   },
   {
-    title: 'За текущий год:',
-    value: annualDistance(currentYear) + ' км',
+    title: 'Current Year',
+    value: annualDistance(currentYear),
     type: 'dinstance'
   },
   {
-    title: 'Текущий год:', // весь километраж с первой записи по последнею / количество дней/365
-    value: (annualDistance(currentYear) / parseInt(daysOnThisYear)).toFixed(1) + ' км/день',
-    type: 'km-per-day'
+    title: 'This Year, per day', // весь километраж с первой записи по последнею / количество дней/365
+    value: (annualDistance(currentYear) / parseInt(daysOnThisYear)).toFixed(1),
+    type: 'km-per-day',
+    hint: 'за этот год',
   },
   {
-    title: 'За всё время:',
-    value: (myTotalDistance / totalDays).toFixed(1) + ' км/день',
-    type: 'km-per-day'
+    title: 'All years, per day',
+    value: (myTotalDistance / totalDays).toFixed(1),
+    type: 'km-per-day',
+    hint: 'весь километраж с первой записи по последнею',
   },
   ]
-  return infoDashboard
+  return infoDashboard.map(item => ({ ...item, value: item.value + ' км' }))
 }

@@ -41,51 +41,60 @@ export default function (data) {
   const getStatusFilter = (statusValue) => data.value?.filter(obj => obj.status === statusValue)?.status
   console.log(getStatusFilter(STATUS_CONFIG_TYPES.SHINOMONTAZH))
 
+  const myTotalDistance = newItem.kilometers - oldItem.kilometers
+
+
   const infoDashboard = [{
-    title: 'За всё время:',
+    title: 'All times',
     value: getAmount('details') + getAmount('work'),
     type: 'amount',
   },
   {
-    title: 'на детали:',
+    title: 'Details',
     value: getAmount('details'),
     type: 'amount',
   },
   {
-    title: 'на работу:',
+    title: 'Work',
     value: getAmount('work'),
     type: 'amount',
   },
   {
-    title: 'Шиномонтаж:',
+    title: 'Pit-Stop',
     value: getAmount('details', STATUS_CONFIG_TYPES.SHINOMONTAZH) + getAmount('work', STATUS_CONFIG_TYPES.SHINOMONTAZH),
     type: 'categories',
   },
   {
-    title: 'Расходка:',
+    title: 'Supply',
     value: getAmount('details', STATUS_CONFIG_TYPES.RASHODKA) + getAmount('work', STATUS_CONFIG_TYPES.RASHODKA),
     type: 'categories',
   },
   {
-    title: 'Поломка и износ:',
+    title: 'Breaking & Tearing',
     value: getAmount('details', STATUS_CONFIG_TYPES.IZNOS) + getAmount('work', STATUS_CONFIG_TYPES.IZNOS) + getAmount('details', STATUS_CONFIG_TYPES.BROKEN) + getAmount('work', STATUS_CONFIG_TYPES.BROKEN),
     type: 'categories',
   },
   {
-    title: 'Мой косяк:',
+    title: 'Force-Major',
     value: getAmount('details', STATUS_CONFIG_TYPES.FORCE_MAJOR) + getAmount('work', STATUS_CONFIG_TYPES.FORCE_MAJOR),
     hint: 'Сумма включена в раздел "Поломка и износ"',
     type: 'categories',
   },
   {
-    title: 'Диагностика:',
+    title: 'Diagnostic',
     value: getAmount('details', STATUS_CONFIG_TYPES.DIAGNOSTIC) + getAmount('work', STATUS_CONFIG_TYPES.DIAGNOSTIC),
     type: 'categories',
   },
   {
-    title: 'Тюнинг:', // весь километраж с первой записи по последнею / количество дней/365
+    title: 'Tuning', // весь километраж с первой записи по последнею / количество дней/365
     value: getAmount('details', STATUS_CONFIG_TYPES.TUNING) + getAmount('work', STATUS_CONFIG_TYPES.TUNING),
     type: 'categories',
+  },
+  {
+    title: 'Cost per kilometer',
+    value: ((getAmount('details') + getAmount('work')) / myTotalDistance).toFixed(2),
+    hint: 'это стоимость без расхода топлива',
+    type: 'costs',
   }]
 
   return infoDashboard.map((obj) => ({ ...obj, value: obj.value + ' грн' }))

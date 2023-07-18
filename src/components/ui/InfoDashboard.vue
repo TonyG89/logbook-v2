@@ -1,16 +1,14 @@
 <template>
   <Loader v-if="!entity.length"></Loader>
-  <div class="info order mr-4 pa-2 rounded border bg-red-lighten-3" v-else>
-    <h3>{{ title }}</h3>
+  <div class="info order mr-4 pa-2 rounded border bg-dashboard my-4" v-else>
+    <h3>{{ title.toLocaleUpperCase() }}:</h3>
     <!-- TODO: TABLE  -->
-    <div>
       <infoCard
         v-for="(item, ind) in entitiesState"
         :key="ind"
         :block="item"
         :color="color"
       />
-    </div>
   </div>
 </template>
 
@@ -42,18 +40,18 @@ const props = defineProps({
   },
   title: {
     type: String,
-    default: () => "INFORMATIONS",
+    default: () => "unnamed dashboard",
     required: false,
   },
   color: {
     type: String,
-    default: () => "primary",
+    default: () => "dashboardList",
     required: false,
   },
 });
 </script>
 <!-- {{ $vuetify.theme.themes.light.primary }} -->
-<style>
+<style scoped>
 :root {
   --main-color: green;
 }
@@ -63,5 +61,9 @@ const props = defineProps({
 }
 .info {
   min-width: 300px;
+}
+h3 {
+  font-family: "MartianMono";
+  color: white;
 }
 </style>

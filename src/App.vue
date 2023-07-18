@@ -24,14 +24,14 @@
           <v-row class="ma-2">
             <InfoDashboard
               :entity="dashboardGeneralInfo"
-              title="Общая информация:"
+              title="Main information"
             />
             <InfoDashboard
               :entity="averageStatisticInfo"
-              title="Средняя статистика"
+              title="Amount statistics"
             />
-            <InfoDashboard :entity="dashboardCost" title="Расходы" />
-            <InfoDashboard :entity="dashboardDistance" title="Расстояние" />
+            <InfoDashboard :entity="dashboardCost" title="Costs" />
+            <InfoDashboard :entity="dashboardDistance" title="Drow" />
             <!-- <InfoDashboard :entity="dashboardCurrentYear" title="Текущий год" /> -->
           </v-row></v-window-item
         >

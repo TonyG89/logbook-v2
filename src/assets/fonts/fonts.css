@@ -19,3 +19,23 @@
     font-weight: normal;
     font-style: normal;
 }
+
+@font-face {
+    font-family: 'MartianMono';
+    src: url('MartianMono-Regular.eot');
+    src: local('MartianMono Regular'), local('MartianMono-Regular'),
+        url('MartianMono-Regular.eot?#iefix') format('embedded-opentype'),
+        url('MartianMono-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'MartianMono';
+    src: url('MartianMono-Bold.ttf');
+    src: local('MartianMono Regular'), local('MartianMono-Bold'),
+        url('MartianMono-Bold.eot?#iefix') format('embedded-opentype'),
+        url('MartianMono-Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}

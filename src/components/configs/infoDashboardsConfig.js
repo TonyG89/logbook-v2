@@ -11,6 +11,10 @@ export default function computedData() {
     const newItem = data.value[0]
     const oldItem = data.value.at(-1)
     const currentYear = moment().year()
+    const getDataYear = (year) => {
+      return data.value?.filter(({ date }) => date.includes(year))
+    }
+    const daysOnThisYear = (new Date(getDataYear(currentYear)[0].date) - new Date(getDataYear(currentYear).at(-1).date)) / 86400000
 
     // DATE
     const fromBoughtToToday = new Date() - new Date(oldItem.date)
@@ -74,40 +78,43 @@ export default function computedData() {
     const totalDays = quantityDay(fromBoughtToToday)
     const totalDistance = newItem.kilometers - oldItem.kilometers
 
-    return [{
-      title: 'Срок службы',
-      value: [totalDays + 'дней'],
-      // type:'',
-    },
-    {
-      title: 'Мое расстояние',
-      value: totalDistance + 'км',
-      // type:'',
-    },
-    {
-      title: 'Средняя растояние',
-      value: [Math.round(totalDistance / totalDays * 365) + 'км/год', (totalDistance / totalDays).toFixed(2) + 'км/день'],
-      // type:'',
-    },
-    {
-      title: 'Средняя растояние',
-      value: (totalDistance / totalDays).toFixed(2) + 'км/день',
-      // type:'',
-    },
-    // ВКЛАДКА: ПОТРАЧЕНО <HR>
-    {
-      title: 'Общее потрачено',
-      value: null
-      // type:'',
-    },
-    {
-      title: 'Тратится',
-      value: [
-        Math.round((getAmount('details') + getAmount('work')) / totalDays * 365) + 'грн/год',
-        Math.round((getAmount('details') + getAmount('work')) / totalDays * 30) + 'грн/месяц',
-        Math.round((getAmount('details') + getAmount('work')) / totalDays) + 'грн/день']
-      // type:'',
-    },
+    return [
+      {
+        title: 'Spent per year',
+        value: [Math.round((getAmount('details') + getAmount('work')) / totalDays * 365) + ' грн/год'],
+        type: 'costs',
+      },
+      // TODO: сделать текущий год
+      // {
+      //   title: 'Spent сurrent year',
+      //   value: [Math.round((getAmount('details') + getAmount('work')) / totalDays * 365) + ' грн/год'],
+      //   type: 'costs',
+      // },
+      {
+        title: 'Spent per month',
+        value: [Math.round((getAmount('details') + getAmount('work')) / totalDays * 30) + ' грн/месяц'],
+        type: 'costs',
+      },
+      {
+        title: 'Spent per day',
+        value: [Math.round((getAmount('details') + getAmount('work')) / totalDays) + ' грн/день'],
+        type: 'costs',
+      },
+      {
+        title: 'Drow per year',
+        value: [Math.round(totalDistance / totalDays * 365) + 'км/год'],
+        type: 'distance',
+      },
+      {
+        title: 'Drow per month',
+        value: [Math.round(totalDistance / totalDays * 30) + 'км/месяц'],
+        type: 'distance',
+      },
+      {
+        title: 'Drow per day',
+        value: [(totalDistance / totalDays).toFixed(2) + 'км/день'],
+        type: 'distance',
+      },
     ]
   }
 
