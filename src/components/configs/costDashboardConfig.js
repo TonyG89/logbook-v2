@@ -96,6 +96,6 @@ export default function (data) {
     hint: 'это стоимость без расхода топлива',
     type: 'costs',
   }]
-
+  infoDashboard.sort((a, b) => b.value - a.value)
   return infoDashboard.map((obj) => ({ ...obj, value: obj.value + ' грн' }))
 }

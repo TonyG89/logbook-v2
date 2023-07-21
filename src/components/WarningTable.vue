@@ -17,7 +17,16 @@
           <td class="text-left font-weight-medium bg-graded-lighten-3">
             {{ item.title }}
           </td>
-          <td class="border">{{ item.over }}</td>
+          <td class="border">
+            <v-tooltip
+              class="tooltip"
+              v-if="item.hint"
+              activator="parent"
+              location="top"
+              >default limit:{{ numberWithSpace(item.hint) }} km
+            </v-tooltip>
+            {{ numberWithSpace(item.over) }}
+          </td>
           <td>{{ item.didIt }}</td>
           <td class="text-right">{{ item.dayToEnd }}</td>
         </tr>
@@ -31,6 +40,8 @@ import { ref, computed } from "vue";
 import Loader from "./ui/Loader.vue";
 import warningTableConfig from "./configs/warningTableConfig";
 import moment from "moment";
+import { numberWithSpace } from "@/helpers/numbers";
+
 const entities = warningTableConfig();
 
 const tableDataState = computed(() =>
@@ -49,10 +60,11 @@ const tableDataState = computed(() =>
     console.log(averageDistance / daysPassed);
     return {
       title: item.title,
+      hint: numberWithSpace(item.limit),
       over: typeof item.limit === "string" ? "-" : supply + " км",
-      didIt: `${lastAction?.kilometers} км  |  ${moment(
+      didIt: `${numberWithSpace(lastAction?.kilometers)} км \n  ${moment(
         lastAction?.date
-      ).format("ll")}`,
+      ).format("D/MM/YY")}`,
       dayToEnd: parseInt(supply / (averageDistance / daysPassed)) + " дней",
     };
   })
