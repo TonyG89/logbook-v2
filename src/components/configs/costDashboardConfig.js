@@ -41,7 +41,6 @@ export default function (data) {
   const getStatusFilter = (statusValue) => data.value?.filter(obj => obj.status === statusValue)?.status
   console.log(getStatusFilter(STATUS_CONFIG_TYPES.SHINOMONTAZH))
 
-  const myTotalDistance = newItem.kilometers - oldItem.kilometers
 
 
   const infoDashboard = [{
@@ -90,12 +89,7 @@ export default function (data) {
     value: getAmount('details', STATUS_CONFIG_TYPES.TUNING) + getAmount('work', STATUS_CONFIG_TYPES.TUNING),
     type: 'categories',
   },
-  {
-    title: 'Cost per kilometer',
-    value: ((getAmount('details') + getAmount('work')) / myTotalDistance).toFixed(2),
-    hint: 'это стоимость без расхода топлива',
-    type: 'costs',
-  }]
+]
   infoDashboard.sort((a, b) => b.value - a.value)
   return infoDashboard.map((obj) => ({ ...obj, value: obj.value + ' грн' }))
 }

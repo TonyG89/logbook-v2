@@ -28,7 +28,7 @@
 
 <script setup>
 import { ref, computed } from "vue";
-import Loader from "./Loader.vue";
+import Loader from "./ui/Loader.vue";
 const props = defineProps({
   data: {
     type: Array, // MAIN DATA

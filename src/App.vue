@@ -21,13 +21,13 @@
         </v-window-item>
         <!-- Дашборды -->
         <v-window-item :value="TAB_CONFIG_TYPES.DASHBOARD">
-          <v-row class="ma-2">
+          <v-row class="ma-2 justify-center">
             <InfoDashboard
               :entity="dashboardGeneralInfo"
               title="Main information"
             />
             <InfoDashboard
-              :entity="averageStatisticInfo"
+              :entity="amountDashboardsInfo"
               title="Amount statistics"
             />
             <InfoDashboard :entity="dashboardCost" title="Costs" />
@@ -62,27 +62,26 @@ import LogbookTable from "@/components/LogbookTable.vue";
 import { TAB_CONFIG_TYPES } from "@/config/dataConfig";
 // import Test from "@/components/Test.vue";
 import { ref, computed, watch } from "vue";
-import CurrentlySituation from "@/components/CurrentlySituation.vue";
+import CurrentlySituation from "@/components/СonsumablesTable.vue";
 import InfoDashboard from "@/components/ui/InfoDashboard.vue";
-import InfoTable from "@/components/ui/InfoTable.vue";
+import InfoTable from "@/components/InfoTable.vue";
 import {
   distanceDashboardConfig,
   costDashboardConfig,
   generalInfoDashboardConfig,
   warningDashboardConfig,
   currentYearDashboardConfig,
+  amountDashboardsConfig
 } from "@/components/configs";
-import computedData from "@/components/configs/infoDashboardsConfig";
 import moment from "moment";
 
-const { averageStatistic } = computedData();
 
 const tab = ref(TAB_CONFIG_TYPES.MAIN_TABLE);
 
 // DASHBOARDS
 // обновляет данные дашбордов
 const dashboardGeneralInfo = ref([]);
-const averageStatisticInfo = ref([]);
+const amountDashboardsInfo = ref([]);
 const dashboardDistance = ref([]);
 const dashboardCost = ref([]);
 const dashboardWarning = ref([]);
@@ -91,7 +90,7 @@ const dashboardCurrentYear = ref([]);
 const infoDashboardsRender = (logbookPayload) => {
   logbookList.value = logbookPayload.value;
   console.log(logbookList.value);
-  averageStatisticInfo.value = averageStatistic(logbookPayload);
+  amountDashboardsInfo.value = amountDashboardsConfig(logbookPayload);
   dashboardDistance.value = distanceDashboardConfig(logbookPayload);
   dashboardCost.value = costDashboardConfig(logbookPayload);
   dashboardGeneralInfo.value = generalInfoDashboardConfig(logbookPayload);

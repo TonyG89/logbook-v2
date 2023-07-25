@@ -3,7 +3,7 @@
   <div class="info order mr-4 pa-2 rounded border bg-dashboard my-4" v-else>
     <h3>{{ title.toLocaleUpperCase() }}:</h3>
     <!-- TODO: TABLE  -->
-      <infoCard
+      <InfoCard
         v-for="(item, ind) in entitiesState"
         :key="ind"
         :block="item"
@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-import infoCard from "./infoCard.vue";
+import InfoCard from "./InfoCard.vue";
 import { ref, reactive, computed } from "vue";
 import Loader from "./Loader.vue";
 

@@ -38,7 +38,7 @@
 <script setup>
 import { ref, computed } from "vue";
 import Loader from "./ui/Loader.vue";
-import warningTableConfig from "./configs/warningTableConfig";
+import warningTableConfig from "./configs/consumablesTableConfig";
 import moment from "moment";
 import { numberWithSpace } from "@/helpers/numbers";
 
@@ -81,3 +81,4 @@ const props = defineProps({
 </script>
 
 <style></style>
+./configs/consumablesTableConfig
